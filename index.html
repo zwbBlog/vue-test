@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="a" placeholder="please input">
+    <input type="text" v-model="b.c" placeholder="please input">
+    <input type="text" v-if="b.add" v-model="b.add" placeholder="动态添加的 please input">
+    <p>{{a}}</p>
+    <p>{{b.c}}</p>
+    <p>{{b.add}}</p>
+    <button @click="change">change a</button>
+    <button @click="change2">set b.c</button>
+</div>
+</body>
+<script src="./core/dep.js"></script>
+<script src="./core/watcher.js"></script>
+<script src="./core/observer.js"></script>
+<script src="./core/compile.js"></script>
+<script src="./core/index.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                a: 2,
+                b: {
+                    c: 3
+                }
+            };
+        },
+        methods: {
+            change() {
+                this.setData({
+                    a:666
+                })
+            },
+            change2(){
+                this.setData({
+                    b:{
+                        c:88
+                    }
+                })
+                // const a =this.getValue('a');
+                // const c =this.getValue('c');
+                const b =this.getValue('b');
+                b.add=777
+                // console.log(a);
+                // console.log(b);
+                // console.log(c);
+                setTimeout(()=>{
+                    this.setData({
+                        b:{
+                            add:999
+                        }
+                    },3000)
+                })
+            }
+        }
+    });
+</script>
+</html>
